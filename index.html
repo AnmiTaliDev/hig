@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnmiTali's Human Interface Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8F9FA;
+            --bg-card: #FFFFFF;
+            --text-primary: #2D3748;
+            --text-secondary: #718096;
+            --text-light: #A0AEC0;
+            --accent: #10B981;
+            --accent-hover: #059669;
+            --accent-light: rgba(16, 185, 129, 0.1);
+            --success: #059669;
+            --warning: #D97706;
+            --error: #DC2626;
+            --info: #0284C7;
+            --border: #E2E8F0;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --shadow-hover: rgba(0, 0, 0, 0.15);
+            --header-bg: rgba(255, 255, 255, 0.95);
+            --footer-bg: #2D3748;
+            --footer-text: #FFFFFF;
+            --footer-text-secondary: rgba(255, 255, 255, 0.8);
+            --footer-text-light: rgba(255, 255, 255, 0.6);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1A202C;
+            --bg-secondary: #2D3748;
+            --bg-card: #2D3748;
+            --text-primary: #F7FAFC;
+            --text-secondary: #CBD5E0;
+            --text-light: #718096;
+            --accent: #68D391;
+            --accent-hover: #48BB78;
+            --accent-light: rgba(104, 211, 145, 0.1);
+            --border: #4A5568;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --shadow-hover: rgba(0, 0, 0, 0.4);
+            --header-bg: rgba(26, 32, 44, 0.95);
+            --footer-bg: #171923;
+            --footer-text: #F7FAFC;
+            --footer-text-secondary: rgba(247, 250, 252, 0.8);
+            --footer-text-light: rgba(247, 250, 252, 0.6);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        .header {
+            padding: 24px 0;
+            background: var(--header-bg);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-main {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: -0.025em;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 400;
+            transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            padding: 8px 0;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a.active {
+            color: var(--accent);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-secondary);
+        }
+
+        .theme-toggle:hover {
+            background: var(--bg-secondary);
+            color: var(--accent);
+        }
+
+        /* GitHub Buttons */
+        .github-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 32px 0;
+        }
+
+        .btn-github {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid var(--border);
+            gap: 8px;
+            font-size: 0.875rem;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            box-shadow: 0 1px 3px var(--shadow);
+        }
+
+        .btn-github:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px var(--shadow);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-github svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 0 80px;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23E2E8F0" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            position: relative;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 600;
+            letter-spacing: -0.025em;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 48px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Philosophy Pills */
+        .philosophy-pills {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+
+        .pill {
+            padding: 8px 16px;
+            background: var(--accent-light);
+            color: var(--accent);
+            border-radius: 24px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 3px var(--shadow);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-secondary);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .section-header h2 {
+            font-size: 2.25rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.125rem;
+        }
+
+        /* Principles Grid */
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 32px;
+            margin-bottom: 64px;
+        }
+
+        .principle-card {
+            background: var(--bg-card);
+            padding: 32px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .principle-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .principle-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px var(--shadow-hover);
+        }
+
+        .principle-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .principle-icon {
+            font-size: 2rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .principle-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .principle-card p {
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .principle-features {
+            list-style: none;
+        }
+
+        .principle-features li {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .principle-features li::before {
+            content: '•';
+            color: var(--accent);
+            position: absolute;
+            left: 0;
+        }
+
+        /* Components Section */
+        .components {
+            background: var(--bg-secondary);
+        }
+
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .component-demo {
+            background: var(--bg-card);
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .component-title {
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        /* Demo Components */
+        .demo-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .demo-card {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 3px var(--shadow);
+            transition: all 0.2s ease;
+        }
+
+        .demo-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .demo-form {
+            max-width: 100%;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+            font-size: 0.875rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-family: inherit;
+            transition: all 0.2s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-light);
+        }
+
+        /* Color Palette */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+        }
+
+        .color-swatch {
+            text-align: center;
+        }
+
+        .color-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 12px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.75rem;
+        }
+
+        .color-name {
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .color-hex {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-family: 'Monaco', monospace;
+        }
+
+        /* Code Block */
+        .code-block {
+            background: #1a1a1a;
+            color: #e1e1e1;
+            padding: 24px;
+            border-radius: 12px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            overflow-x: auto;
+            margin: 24px 0;
+        }
+
+        .code-block .keyword {
+            color: #ff79c6;
+        }
+
+        .code-block .string {
+            color: #f1fa8c;
+        }
+
+        .code-block .comment {
+            color: #6272a4;
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+            text-align: center;
+            margin: 64px 0;
+        }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .stat-item p {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 64px 0 32px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 16px;
+            color: var(--footer-text);
+        }
+
+        .footer-section p, .footer-section a {
+            color: var(--footer-text-secondary);
+            text-decoration: none;
+            line-height: 1.6;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--footer-text-light);
+            padding-top: 32px;
+            text-align: center;
+            color: var(--footer-text-light);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.25rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .nav-main {
+                gap: 16px;
+            }
+
+            .principles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .philosophy-pills {
+                justify-content: center;
+            }
+
+            .btn-group {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .github-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav-main">
+                <a href="#" class="logo">AnmiTali's <span>HIG</span></a>
+                <ul class="nav-links">
+                    <li><a href="#principles" class="active">Принципы</a></li>
+                    <li><a href="#components">Компоненты</a></li>
+                    <li><a href="#palette">Палитра</a></li>
+                    <li><a href="#guidelines">Руководство</a></li>
+                </ul>
+            </div>
+            <button class="theme-toggle" onclick="toggleTheme()" title="Переключить тему">
+                <span id="theme-icon">🌙</span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="floating">
+                    <h1>Human Interface Guide</h1>
+                </div>
+                <p class="hero-subtitle">Минималистичный Органический Дзен</p>
+                <p>Дизайн-система для создания гармоничных, интуитивных интерфейсов, где каждый элемент дышит, а пользователь находит покой в простоте.</p>
+                
+                <div class="philosophy-pills">
+                    <span class="pill">🎯 Минимализм</span>
+                    <span class="pill">🌿 Органичность</span>
+                    <span class="pill">🧘 Дзен-эстетика</span>
+                </div>
+
+                <div class="btn-group">
+                    <a href="#principles" class="btn btn-primary">
+                        Изучить принципы
+                        <span>→</span>
+                    </a>
+                    <a href="#components" class="btn btn-secondary">Посмотреть компоненты</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Principles Section -->
+    <section class="section" id="principles">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Три столпа философии</h2>
+                <p>AnmiTali's HIG строится на гармоничном сочетании западного минимализма, природной органичности и восточной мудрости дзен.</p>
+            </div>
+
+            <div class="principles-grid">
+                <div class="principle-card fade-in">
+                    <span class="principle-icon">🎯</span>
+                    <h3>Минимализм</h3>
+                    <p>Убираем всё лишнее, оставляя только то, что служит цели. Каждый элемент должен быть оправдан.</p>
+                    <ul class="principle-features">
+                        <li>Много свободного пространства</li>
+                        <li>Монохромная цветовая основа</li>
+                        <li>Чистая типографика без засечек</li>
+                        <li>Плоские элементы с мягкими тенями</li>
+                        <li>Функциональность превыше декора</li>
+                    </ul>
+                </div>
+
+                <div class="principle-card fade-in">
+                    <span class="principle-icon">🌿</span>
+                    <h3>Органический дизайн</h3>
+                    <p>Природные формы и плавные переходы создают ощущение естественности и живости интерфейса.</p>
+                    <ul class="principle-features">
+                        <li>Скругленные углы 8-16px</li>
+                        <li>Естественные кривые и формы</li>
+                        <li>Мягкие градиенты</li>
+                        <li>Природные пропорции</li>
+                        <li>Дышащие элементы интерфейса</li>
+                    </ul>
+                </div>
+
+                <div class="principle-card fade-in">
+                    <span class="principle-icon">🧘</span>
+                    <h3>Дзен-эстетика</h3>
+                    <p>Баланс, гармония и созерцательность. Интерфейс не кричит, а мягко направляет внимание.</p>
+                    <ul class="principle-features">
+                        <li>Визуальный баланс и симметрия</li>
+                        <li>Спокойная цветовая палитра</li>
+                        <li>Плавные анимации без резкости</li>
+                        <li>Созерцательность и покой</li>
+                        <li>Единство всех элементов</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Components Section -->
+    <section class="section components" id="components">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Живые компоненты</h2>
+                <p>Каждый компонент создан с заботой о деталях и следует принципам органического дзена.</p>
+            </div>
+
+            <div class="components-grid">
+                <div class="component-demo fade-in">
+                    <div class="component-title">Кнопки</div>
+                    <div class="demo-buttons">
+                        <button class="btn btn-primary">Основная</button>
+                        <button class="btn btn-secondary">Вторичная</button>
+                    </div>
+                </div>
+
+                <div class="component-demo fade-in">
+                    <div class="component-title">Карточка</div>
+                    <div class="demo-card">
+                        <h4 style="margin-bottom: 8px;">Заголовок карточки</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.875rem;">Описание с плавными тенями и скруглениями</p>
+                    </div>
+                </div>
+
+                <div class="component-demo fade-in">
+                    <div class="component-title">Форма</div>
+                    <form class="demo-form">
+                        <div class="form-group">
+                            <label class="form-label">Имя</label>
+                            <input type="text" class="form-input" placeholder="Введите ваше имя">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-input" placeholder="your@email.com">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Color Palette Section -->
+    <section class="section" id="palette">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Цветовая гармония</h2>
+                <p>Спокойная палитра, вдохновленная природой и создающая ощущение умиротворения.</p>
+            </div>
+
+            <div class="color-grid">
+                <div class="color-swatch fade-in">
+                    <div class="color-circle" style="background: #2D3748;">TEXT</div>
+                    <div class="color-name">Основной текст</div>
+                    <div class="color-hex">#2D3748</div>
+                </div>
+                <div class="color-swatch fade-in">
+                    <div class="color-circle" style="background: #718096;">SEC</div>
+                    <div class="color-name">Вторичный текст</div>
+                    <div class="color-hex">#718096</div>
+                </div>
+                <div class="color-swatch fade-in">
+                    <div class="color-circle" style="background: #10B981;">ZEN</div>
+                    <div class="color-name">Природный зеленый</div>
+                    <div class="color-hex">#10B981</div>
+                </div>
+                <div class="color-swatch fade-in">
+                    <div class="color-circle" style="background: #F8F9FA; color: #2D3748;">BG</div>
+                    <div class="color-name">Фон</div>
+                    <div class="color-hex">#F8F9FA</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guidelines Section -->
+    <section class="section" id="guidelines">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Руководство по применению</h2>
+                <p>Практические рекомендации для создания интерфейсов в стиле минималистичного органического дзена.</p>
+            </div>
+
+            <div class="fade-in">
+                <h3 style="margin-bottom: 24px; color: var(--text-primary);">GitHub Repository</h3>
+                <p style="color: var(--text-secondary); text-align: center; margin-bottom: 24px;">
+                    Открытый исходный код • Лицензия CC0 1.0 Universal • Свободное использование
+                </p>
+                <div class="github-buttons">
+                    <a href="https://github.com/AnmiTaliDev/hig" class="btn-github" target="_blank">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        Посмотреть код
+                    </a>
+                    <a href="https://github.com/AnmiTaliDev/hig/archive/refs/heads/main.zip" class="btn-github">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 15.5l-6-6h4V3h4v6.5h4l-6 6zM21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2v-7h2v7h14v-7h2z"/>
+                        </svg>
+                        Скачать
+                    </a>
+                    <a href="https://github.com/AnmiTaliDev/hig/issues" class="btn-github">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                        Предложить улучшения
+                    </a>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-item fade-in">
+                    <h3>200ms</h3>
+                    <p>Идеальная длительность анимации</p>
+                </div>
+                <div class="stat-item fade-in">
+                    <h3>12px</h3>
+                    <p>Стандартное скругление углов</p>
+                </div>
+                <div class="stat-item fade-in">
+                    <h3>1.6</h3>
+                    <p>Оптимальная высота строки</p>
+                </div>
+                <div class="stat-item fade-in">
+                    <h3>24px</h3>
+                    <p>Базовый отступ</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>AnmiTali's HIG</h3>
+                    <p>Дизайн-система для создания гармоничных интерфейсов, где технологии встречаются с философией дзен.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Открытый исходный код</h3>
+                    <p><a href="https://github.com/AnmiTaliDev/hig">github.com/AnmiTaliDev/hig</a></p>
+                    <p>Лицензия: CC0 1.0 Universal (Public Domain)</p>
+                    <p>Свободное использование без ограничений</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Применение</h3>
+                    <p>Веб-интерфейсы • Мобильные приложения • Дизайн-системы • Цифровые продукты</p>
+                    <p>Вдохновлено GNOME HIG, скандинавским дизайном и японской эстетикой.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 AnmiTali's Human Interface Guide. Создано с заботой о деталях и любовью к простоте.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle Functionality
+        function toggleTheme() {
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('theme-icon');
+            const currentTheme = html.getAttribute('data-theme');
+            
+            if (currentTheme === 'dark') {
+                html.removeAttribute('data-theme');
+                themeIcon.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                themeIcon.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Initialize theme from localStorage
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            const themeIcon = document.getElementById('theme-icon');
+            
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeIcon.textContent = '☀️';
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Active navigation link highlighting
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 120;
+                if (window.pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add subtle parallax effect to hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.05}px)`;
+            }
+        });
+
+        // Interactive color swatches
+        document.querySelectorAll('.color-circle').forEach(circle => {
+            circle.addEventListener('click', () => {
+                const color = getComputedStyle(circle).backgroundColor;
+                const hex = circle.parentElement.querySelector('.color-hex').textContent;
+                
+                // Copy to clipboard
+                navigator.clipboard.writeText(hex).then(() => {
+                    const originalText = circle.textContent;
+                    circle.textContent = '✓';
+                    circle.style.fontSize = '1.5rem';
+                    
+                    setTimeout(() => {
+                        circle.textContent = originalText;
+                        circle.style.fontSize = '0.75rem';
+                    }, 1000);
+                });
+            });
+        });
+
+        // Demo button interactions
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                btn.style.transform = 'translateY(-1px)';
+            });
+            
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
